@@ -1,0 +1,558 @@
+/* ==========================
+   Reset & Base Styles
+========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: #fafafa;
+  color: #1a1a1a;
+  line-height: 1.6;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* ==========================
+   Typography
+========================== */
+h1 {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  text-align: center;
+  margin-bottom: 48px;
+  color: #1a1a1a;
+  animation: fadeInDown 0.6s ease;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  margin-bottom: 24px;
+  color: #2a2a2a;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: #2a2a2a;
+}
+
+/* ==========================
+   Layout Containers
+========================== */
+#foodSearchContainer,
+#foodLogContainer,
+#totalsContainer {
+  max-width: 680px;
+  margin: 0 auto 48px;
+  background: white;
+  padding: 32px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  animation: fadeInUp 0.5s ease;
+  animation-fill-mode: both;
+}
+
+#foodSearchContainer {
+  animation-delay: 0.1s;
+}
+
+#foodLogContainer {
+  animation-delay: 0.2s;
+}
+
+#totalsContainer {
+  animation-delay: 0.3s;
+}
+
+/* ==========================
+   Search Section
+========================== */
+#foodSearchContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#inputFoodSearch {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  background: white;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+#inputFoodSearch:focus {
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 1px #1a1a1a;
+  transform: translateY(-1px);
+}
+
+#inputFoodSearch::placeholder {
+  color: #999;
+}
+
+.errorMsg {
+  font-size: 0.875rem;
+  color: #d32f2f;
+  min-height: 20px;
+  animation: shake 0.4s ease;
+}
+
+/* ==========================
+   Buttons
+========================== */
+.btn,
+#btnFoodSearch {
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before,
+#btnFoodSearch::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::before,
+#btnFoodSearch:hover::before {
+  width: 500%;
+  height: 500%;
+}
+
+.btn:hover,
+#btnFoodSearch:hover {
+  background: #333;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active,
+#btnFoodSearch:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#btnFoodSearch {
+  width: 100%;
+}
+
+.btnAdd {
+  background: #1a1a1a;
+  margin-right: 8px;
+}
+
+.btnAdd:hover {
+  background: #333;
+}
+
+.btnEdit {
+  background: transparent;
+  color: #1a1a1a;
+  border: 1px solid #e0e0e0;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  margin-right: 6px;
+}
+
+.btnEdit:hover {
+  background: #f5f5f5;
+  border-color: #1a1a1a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btnDelete {
+  background: transparent;
+  color: #d32f2f;
+  border: 1px solid #e0e0e0;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+.btnDelete:hover {
+  background: #fef0f0;
+  border-color: #d32f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15);
+}
+
+/* ==========================
+   Overlay / Modal
+========================== */
+#foodSearchOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+#foodSearchOverlay[style*="flex"] {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  animation: overlayFadeIn 0.3s ease;
+}
+
+#overlayContent {
+  background: white;
+  max-width: 560px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 40px;
+  border-radius: 2px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center center;
+}
+
+#overlayMessage {
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  min-height: 20px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#overlayResults {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+
+.foodItem {
+  padding: 14px 16px;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  will-change: background, border-color;
+}
+
+.foodItem:nth-child(1) { animation-delay: 0.05s; }
+.foodItem:nth-child(2) { animation-delay: 0.1s; }
+.foodItem:nth-child(3) { animation-delay: 0.15s; }
+.foodItem:nth-child(4) { animation-delay: 0.2s; }
+.foodItem:nth-child(5) { animation-delay: 0.25s; }
+.foodItem:nth-child(n+6) { animation-delay: 0.3s; }
+
+.foodItem:hover {
+  background: white;
+  border-color: #1a1a1a;
+}
+
+#overlayContent label {
+  display: block;
+  font-size: 0.9rem;
+  margin: 20px 0 24px;
+  color: #555;
+}
+
+#overlayContent input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  outline: none;
+  transition: all 0.3s ease;
+  -moz-appearance: textfield;
+}
+
+#overlayContent input[type="number"]::-webkit-outer-spin-button,
+#overlayContent input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#overlayContent input[type="number"]:focus {
+  border-color: #1a1a1a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+#overlayContent p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: #555;
+  animation: fadeIn 0.4s ease;
+}
+
+/* ==========================
+   Food Log Table
+========================== */
+#foodLogTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+#foodLogTable thead {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#foodLogTable th {
+  text-align: left;
+  padding: 12px 8px;
+  font-weight: 400;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #666;
+}
+
+#foodLogTable td {
+  padding: 16px 8px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #2a2a2a;
+}
+
+#foodLogTable tbody tr {
+  transition: all 0.2s ease;
+}
+
+/* Animate only updated rows */
+#foodLogTable tbody tr.row-updated {
+  animation: fadeInUp 0.4s ease;
+}
+
+#foodLogTable tbody tr:hover {
+  background: #fafafa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+#foodLogTable td:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ==========================
+   Totals Section
+========================== */
+#totalsContainer {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+}
+
+.totalsRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.totalsRow:hover {
+  padding-left: 8px;
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.totalsRow:last-child {
+  border-bottom: none;
+  font-weight: 500;
+}
+
+.totalsRow span:first-child {
+  color: #555;
+}
+
+.totalsRow span:last-child {
+  color: #1a1a1a;
+  font-weight: 400;
+  transition: transform 0.2s ease;
+}
+
+.totalsRow:hover span:last-child {
+  transform: scale(1.05);
+}
+
+/* ==========================
+   Responsive Design
+========================== */
+@media (max-width: 640px) {
+  body {
+    padding: 24px 16px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 32px;
+  }
+
+  #foodSearchContainer,
+  #foodLogContainer,
+  #totalsContainer {
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  #overlayContent {
+    padding: 28px;
+  }
+
+  #foodLogTable th,
+  #foodLogTable td {
+    padding: 12px 6px;
+    font-size: 0.85rem;
+  }
+
+  .btnEdit,
+  .btnDelete {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+/* ==========================
+   Animations
+========================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-4px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Smooth scrollbar for overlay */
+#overlayContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+#overlayContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#overlayContent::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+#overlayContent::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
+}
+
+/* Loading state animation */
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}

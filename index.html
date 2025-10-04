@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Macro Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ==========================
+       Header
+  ========================== -->
+  <h1>Macro Tracker</h1>
+
+  <!-- ==========================
+    🔎 Search Input Section
+  ========================== -->
+  <div id="foodSearchContainer">
+    <input type="text" id="inputFoodSearch" placeholder="Search for a food..." />
+    <button id="btnFoodSearch">Search</button>
+    <p id="searchError" class="errorMsg"></p>
+  </div>
+
+  <!-- ==========================
+    🔎 Food Search Overlay
+  ========================== -->
+  <div id="foodSearchOverlay">
+    <div id="overlayContent">
+      <!-- Dynamic food results will appear here -->
+      <p>Search results will appear here...</p>
+      <button id="btnCloseOverlay" class="btn">Close</button>
+    </div>
+  </div>
+
+  <!-- ==========================
+    📝 Food Log Section
+  ========================== -->
+  <div id="foodLogContainer">
+    <h2>Food Log</h2>
+    <table id="foodLogTable">
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Serving Size (g)</th>
+          <th>Calories</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Food log items will appear here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==========================
+    ➕ Totals Section
+  ========================== -->
+  <div id="totalsContainer">
+    <h2>Totals</h2>
+    <div class="totalsRow"><span>Calories:</span><span id="totalCalories">0</span></div>
+    <div class="totalsRow"><span>Protein:</span><span id="totalProtein">0</span></div>
+    <div class="totalsRow"><span>Net Carbs:</span><span id="totalNetCarbs">0</span></div>
+    <div class="totalsRow"><span>Fat:</span><span id="totalFat">0</span></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
